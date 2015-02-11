@@ -24,10 +24,11 @@ end
 
 get "/product" do
   
-  new = Product.new("#{params["name"]}" => name, "#{params["description"]}" => description, 
-  "#{params["cost"]}" => cost, "#{params["serial"]}" => serial, "#{params["quantity"]}" => quantity)
+  p1 = Product.new("name" => "#{params["name"]}", 
+  "description" => "#{params["description"]}", "cost" => "#{params["cost"]}", 
+  "serial" => "#{params["serial"]}", "quantity" => "#{params["quantity"]}")
   
-  new.insert
+  p1.insert
   
   
   logger.info params
@@ -39,10 +40,6 @@ get "/product" do
   @location_id = "#{params["location_id"]}"
   @category_id = "#{params["category_id"]}"
   erb :product, :layout => :boilerplate
-  
-# new_product = Product.new("name" => name, "description" => description,
-# "cost" => cost, "serial" => serial, "quantity" => quantity, "location_id" =>
-# "null", "category_id" => "null")
 
 
 end
