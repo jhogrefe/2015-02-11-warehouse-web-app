@@ -28,7 +28,7 @@ get "/product" do
   "description" => "#{params["description"]}", "cost" => "#{params["cost"]}", 
   "serial" => "#{params["serial"]}", "quantity" => "#{params["quantity"]}", 
   "location_id" => "#{params["location_id"]}", 
-  "category_id" => "#{params["category_id"]}",)
+  "category_id" => "#{params["category_id"]}")
   
   p1.insert
   
