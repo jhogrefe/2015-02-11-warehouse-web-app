@@ -26,7 +26,9 @@ get "/product" do
   
   p1 = Product.new("name" => "#{params["name"]}", 
   "description" => "#{params["description"]}", "cost" => "#{params["cost"]}", 
-  "serial" => "#{params["serial"]}", "quantity" => "#{params["quantity"]}")
+  "serial" => "#{params["serial"]}", "quantity" => "#{params["quantity"]}", 
+  "location_id" => "#{params["location_id"]}", 
+  "category_id" => "#{params["category_id"]}",)
   
   p1.insert
   
