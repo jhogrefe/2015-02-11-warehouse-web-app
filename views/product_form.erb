@@ -24,16 +24,17 @@
     <strong>Assign the product to a location:</strong>
     <br><br>
     <select name="location_id">
-    <option value="#{1: ""}">#{1: ""}</option>
-    <option value="#{2: ""}">#{2: ""}</option>
-    <option value="#{3: ""}">#{3: ""}</option>
+      <% Location.all.each do |x| %>
+        <option value="<%= x.id %>"><%= x.location_name %></option>
+      <% end %>
     </select>
     <br><br><br>
     <strong>Assign the product to a category:</strong>
     <br><br>
     <select name="category_id">
-    <option value="#{1: ""}">#{1: ""}</option>
-    <option value="#{2: ""}">#{2: ""}</option>
+      <% Category.all.each do |x| %>
+        <option value="<%= x.id %>"><%= x.manufacturer %></option>
+      <% end %>
     </select>
     <br><br><br>
     <input type="submit" value="Submit">
