@@ -24,6 +24,12 @@ end
 
 get "/product" do
   
+  new = Product.new("#{params["name"]}" => name, "#{params["description"]}" => description, 
+  "#{params["cost"]}" => cost, "#{params["serial"]}" => serial, "#{params["quantity"]}" => quantity)
+  
+  new.insert
+  
+  
   logger.info params
   @name = "#{params["name"]}"
   @description = "#{params["description"]}"
