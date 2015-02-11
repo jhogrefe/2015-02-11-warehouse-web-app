@@ -1,0 +1,40 @@
+<h1>Add New Product Record</h1>
+
+<p>
+   Please enter your product information into the following form.
+</p>
+
+  <form action="/product">
+    <strong>Product Name:</strong><br>
+    <input type="text" name="name">
+    <br><br><br>
+    <strong>Product Description:</strong><br><br>
+    <textarea name="description" placeholder="" rows="5" cols="30">
+    </textarea>
+    <br><br><br>
+    <strong>Cost:</strong><br>
+    <input type="number" name="cost" min="0" step="0.01">
+    <br><br><br>
+    <strong>Serial Number:</strong><br>
+    <input type="text" name="serial">
+    <br><br><br>    
+    <strong>Quantity:</strong><br>
+    <input type="number" name="quantity" min="0">
+    <br><br><br>
+    <strong>Assign the product to a location:</strong>
+    <br><br>
+    <select name="location_id">
+    <option value="#{1: ""}">#{1: ""}</option>
+    <option value="#{2: ""}">#{2: ""}</option>
+    <option value="#{3: ""}">#{3: ""}</option>
+    </select>
+    <br><br><br>
+    <strong>Assign the product to a category:</strong>
+    <br><br>
+    <select name="category_id">
+    <option value="#{1: ""}">#{1: ""}</option>
+    <option value="#{2: ""}">#{2: ""}</option>
+    </select>
+    <br><br><br>
+    <input type="submit" value="Submit">
+  </form>
