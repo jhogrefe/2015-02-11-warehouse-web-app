@@ -67,8 +67,29 @@ class Location
   end
   
   def self.all
+    
     results = DATABASE.execute("SELECT * FROM locations")
-    results
+    
+    get_location = []
+
+    instance_variables.each do |x|
+      get_location << x.to_s.delete("@")
+  
+    end
+    
+    location_grabber = []
+    
+    get_location.each do |y|
+      local_var = self.send(y)
+    
+      if local_var.is_a?(Integer)
+        location_grabber << "#{y} = #{local_var}"  
+      else
+        location_grabber << "#{y} = '#{local_var}'"
+      end
+    end
+    
+    var = location_grabber.join(", ")
   end  
   
 end
