@@ -18,7 +18,9 @@ get "/" do
   erb :home, :layout => :boilerplate 
 end
 
-
+get "/product_form" do
+  erb :product_form, :layout => :boilerplate
+end
 
 get "/product" do
   
