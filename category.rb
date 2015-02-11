@@ -67,8 +67,16 @@ class Category
   end
   
   def self.all
-    results = DATABASE.execute("SELECT * FROM categories")
-    results
-  end 
+   
+     results = DATABASE.execute("SELECT * FROM categories")
+   
+     results_as_objects = []
+   
+     results.each do |r|
+       results_as_objects << self.new(r)
+     end
+   
+     results_as_objects
+   end
     
 end
