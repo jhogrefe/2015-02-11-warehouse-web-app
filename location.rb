@@ -65,4 +65,10 @@ class Location
     
     DATABASE.execute("DELETE FROM locations WHERE location_name = '#{location_name}'")
   end
+  
+  def self.all
+    results = DATABASE.execute("SELECT * FROM locations")
+    results
+  end  
+  
 end

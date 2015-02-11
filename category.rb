@@ -65,4 +65,10 @@ class Category
     
     DATABASE.execute("DELETE FROM categories WHERE manufacturer = '#{manufacturer}'")
   end
+  
+  def self.all
+    results = DATABASE.execute("SELECT * FROM categories")
+    results
+  end 
+    
 end
