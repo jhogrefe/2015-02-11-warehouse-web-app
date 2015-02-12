@@ -34,11 +34,10 @@ class Location
       else
         location_grabber << "#{y} = '#{local_var}'"
       end
+      DATABASE.execute("UPDATE locations SET #{var} WHERE id = #{id}")
+      
     end
-    
-    var = location_grabber.join(", ")
-    
-    DATABASE.execute("UPDATE locations SET #{var} WHERE id = #{id}")
+        
   end
   
   def delete

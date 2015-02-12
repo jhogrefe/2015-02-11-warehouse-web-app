@@ -1,0 +1,12 @@
+<h1>Warehouse Locations</h1>
+<h2>Look below for a current list of your warehouse locations!</h2>
+<hr>
+<h3>LOCATIONS</h3>
+<hr>
+<% @locations.each do |locations| %>
+  <p>
+     <%= locations.location_name %>
+  </p>
+<% end %>
+
+<br><a href="http://localhost:4567">&gt&gtHome&lt&lt</a>

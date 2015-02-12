@@ -32,6 +32,17 @@ get "/location" do
 end
 
 
+get "/update_location" do
+  erb :update_location, :layout => :boilerplate
+end
+
+get "/location_update" do
+  l3 = Product.new("location_id" => "#{params["location_id"]}")
+  
+  erb :update_location, :layout => :boilerplate
+end
+
+
 get "/delete_location" do
   erb :delete_location, :layout => :boilerplate
 end
@@ -42,6 +53,14 @@ get "/location_delete" do
 
   erb :delete, :layout => :boilerplate
 end
+
+
+get "/fetch_locations" do
+  @locations = Location.all
+  erb :fetch_locations, :layout => :boilerplate
+end
+
+
 
 
 
@@ -93,3 +112,13 @@ get "/product" do
   erb :product, :layout => :boilerplate
 end
 
+get "/delete_product" do
+  erb :delete_product, :layout => :boilerplate
+end
+
+get "/product_delete" do
+  p2 = Product.new("name" => "#{params["name"]}")
+  p2.delete
+
+  erb :delete, :layout => :boilerplate
+end

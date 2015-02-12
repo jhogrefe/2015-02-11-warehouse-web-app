@@ -72,11 +72,10 @@ class Product
       else
         product_grabber << "#{y} = '#{local_var}'"
       end
+      DATABASE.execute("DELETE FROM products WHERE id = '#{local_var}'")
+      
     end
-    
-    var = product_grabber.join(", ")
-    
-    DATABASE.execute("DELETE FROM products WHERE name = '#{name}'")
+        
   end
   
   
@@ -150,6 +149,20 @@ class Product
     # results_changed_to_objects
     results
   end
+  
+  def self.all
+   
+     results = DATABASE.execute("SELECT * FROM products")
+   
+     results_as_objects = []
+   
+     results.each do |r|
+       results_as_objects << self.new(r)
+     end
+   
+     results_as_objects
+   end
+  
   # def self.find(number)
   #   results = DATABASE.execute("SELECT * FROM products WHERE id =
   #                               #{number}")
