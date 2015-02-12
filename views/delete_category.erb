@@ -1,0 +1,15 @@
+<h1>Delete Product Category Record</h1>
+
+<p>
+   Please select which product category you would like to delete.
+</p>
+
+  <form action="/category_delete">
+    <select name="category_id">
+      <% Category.all.each do |x| %>
+        <option value="<%= x.id %>"><%= x.id%> - <%= x.manufacturer %></option>
+      <% end %>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>

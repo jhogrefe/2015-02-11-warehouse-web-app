@@ -4,7 +4,7 @@
    Please select which warehouse location you would like to delete.
 </p>
 
-  <form action="/delete">
+  <form action="/location_delete">
     <select name="location_id">
       <% Location.all.each do |x| %>
         <option value="<%= x.id %>"><%= x.id%> - <%= x.location_name %></option>
