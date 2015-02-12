@@ -59,11 +59,10 @@ class Category
       else
         category_grabber << "#{y} = '#{local_var}'"
       end
+      DATABASE.execute("DELETE FROM categories WHERE id = '#{local_var}'")
+      
     end
-    
-    var = category_grabber.join(", ")
-    
-    DATABASE.execute("DELETE FROM categories WHERE manufacturer = '#{manufacturer}'")
+        
   end
   
   def self.all
