@@ -1,0 +1,15 @@
+<h1>Delete Product Record</h1>
+
+<p>
+   Please select which product you would like to delete.
+</p>
+
+  <form action="/product_delete">
+    <select name="name">
+      <% Product.all.each do |x| %>
+        <option value="<%= x.id %>"><%= x.id%> - <%= x.name %></option>
+      <% end %>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>

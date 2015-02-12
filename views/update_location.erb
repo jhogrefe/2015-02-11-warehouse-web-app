@@ -1,0 +1,14 @@
+<h1>Update Warehouse Location Record</h1>
+
+<p>
+   Please update your warehouse location name.
+</p>
+
+  <form action="/location_update">
+    <strong>Warehouse Location Name:</strong><br>
+      <% Location.all.each do |x| %>
+        <input type="text" name="location_name" value="<%= x.location_name %>">
+      <% end %>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
