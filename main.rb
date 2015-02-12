@@ -1,35 +1,22 @@
 require 'pry'
 require 'sinatra'
 require 'sqlite3'
-require 'data_mapper'
 
-
-DATABASE = SQLite3::Database.new('/database/warehouse.db')
+DATABASE = SQLite3::Database.new('database/warehouse.db')
 
 # Here, we load category, location and product files so we don't need to in 
 # every file
 
-require_relative "../database/database_setup"
-require_relative "../models/category"
-require_relative "../models/location"
-require_relative "../models/product"
+require_relative "database/database_setup"
+require_relative "models/category"
+require_relative "models/location"
+require_relative "models/product"
 
 
 get "/" do
   erb :home, :layout => :boilerplate 
 end
 
-
-get "/delete_location" do
-  erb :delete_location, :layout => :boilerplate
-end
-
-get "/delete" do
-  l2 = Location.new("id" => "#{params["location_id"]}")
-  l2.delete
-
-  erb :delete, :layout => :boilerplate
-end
 
 
 get "/add_location" do
@@ -45,6 +32,19 @@ get "/location" do
 end
 
 
+get "/delete_location" do
+  erb :delete_location, :layout => :boilerplate
+end
+
+get "/location_delete" do
+  l2 = Location.new("id" => "#{params["location_id"]}")
+  l2.delete
+
+  erb :delete, :layout => :boilerplate
+end
+
+
+
 get "/add_category" do
   erb :add_category, :layout => :boilerplate
 end
@@ -56,6 +56,19 @@ get "/category" do
   @manufacturer = "#{params["manufacturer"]}"
   erb :category, :layout => :boilerplate
 end
+
+
+get "/delete_category" do
+  erb :delete_category, :layout => :boilerplate
+end
+
+get "/category_delete" do
+  c2 = Category.new("id" => "#{params["category_id"]}")
+  c2.delete
+
+  erb :delete, :layout => :boilerplate
+end
+
 
 
 get "/product_form" do
