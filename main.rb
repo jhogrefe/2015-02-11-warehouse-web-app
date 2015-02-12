@@ -89,6 +89,12 @@ get "/category_delete" do
 end
 
 
+get "/fetch_categories" do
+  @categories = Category.all
+  erb :fetch_categories, :layout => :boilerplate
+end
+
+
 
 get "/product_form" do
   erb :product_form, :layout => :boilerplate

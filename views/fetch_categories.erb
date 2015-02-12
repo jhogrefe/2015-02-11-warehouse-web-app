@@ -1,0 +1,12 @@
+<h1>Product Categories</h1>
+<h2>Look below for a current list of your product categories!</h2>
+<hr>
+<h3>MANUFACTURERS</h3>
+<hr>
+<% @categories.each do |categories| %>
+  <p>
+     <%= categories.manufacturer %>
+  </p>
+<% end %>
+
+<br><a href="http://localhost:4567">&gt&gtHome&lt&lt</a>
