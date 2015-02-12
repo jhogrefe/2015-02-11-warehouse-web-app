@@ -14,25 +14,36 @@ require_relative "category"
 require_relative "location"
 require_relative "product"
 
+
 get "/" do
   erb :home, :layout => :boilerplate 
 end
+
+
+get "/add_location" do
+  erb :add_location, :layout => :boilerplate
+end
+
+get "/location" do
+  l1 = Location.new("location_name" => "#{params["location_name"]}")
+  l1.insert
+  logger.info params
+  @location_name = "#{params["location_name"]}"
+  erb :location, :layout => :boilerplate
+end
+
 
 get "/product_form" do
   erb :product_form, :layout => :boilerplate
 end
 
-get "/product" do
-  
+get "/product" do 
   p1 = Product.new("name" => "#{params["name"]}", 
   "description" => "#{params["description"]}", "cost" => "#{params["cost"]}", 
   "serial" => "#{params["serial"]}", "quantity" => "#{params["quantity"]}", 
   "location_id" => "#{params["location_id"]}", 
-  "category_id" => "#{params["category_id"]}")
-  
-  p1.insert
-  
-  
+  "category_id" => "#{params["category_id"]}")  
+  p1.insert  
   logger.info params
   @name = "#{params["name"]}"
   @description = "#{params["description"]}"
@@ -42,7 +53,5 @@ get "/product" do
   @location_id = "#{params["location_id"]}"
   @category_id = "#{params["category_id"]}"
   erb :product, :layout => :boilerplate
-
-
 end
 
