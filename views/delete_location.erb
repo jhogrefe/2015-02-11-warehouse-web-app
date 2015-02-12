@@ -1,0 +1,15 @@
+<h1>Delete Warehouse Location Record</h1>
+
+<p>
+   Please select which warehouse location you would like to delete.
+</p>
+
+  <form action="/delete">
+    <select name="location_id">
+      <% Location.all.each do |x| %>
+        <option value="<%= x.id %>"><%= x.id%> - <%= x.location_name %></option>
+      <% end %>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
