@@ -59,11 +59,12 @@ class Location
       else
         location_grabber << "#{y} = '#{local_var}'"
       end
+      DATABASE.execute("DELETE FROM locations WHERE id = '#{local_var}'")
+      
     end
     
     var = location_grabber.join(", ")
     
-    DATABASE.execute("DELETE FROM locations WHERE location_name = '#{location_name}'")
   end
   
   def self.all
@@ -78,5 +79,32 @@ class Location
    
      results_as_objects
    end
+
+
+
+   # def self.delete_location
+   #   get_location = []
+   #
+   #   instance_variables.each do |x|
+   #     get_location << x.to_s.delete("@")
+   #
+   #   end
+   #    results = DATABASE.execute("SELECT id FROM locations")
+   #
+   #    results_as_objects = []
+   #
+   #    results.each do |r|
+   #      results_as_objects = self.new(r)
+   #    end
+   #
+   #    if results_as_objects.is_a?(Integer)
+   #      location_grabber << "#{y} = #{local_var}"
+   #    else
+   #      location_grabber << "#{y} = '#{local_var}'"
+   #    end
+   #
+   #  DATABASE.execute("DELETE FROM locations WHERE id = '#{location_id}'")
+   #
+   #  end
   
 end

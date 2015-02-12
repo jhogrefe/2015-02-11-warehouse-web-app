@@ -20,6 +20,18 @@ get "/" do
 end
 
 
+get "/delete_location" do
+  erb :delete_location, :layout => :boilerplate
+end
+
+get "/delete" do
+  l2 = Location.new("id" => "#{params["location_id"]}")
+  l2.delete
+
+  erb :delete, :layout => :boilerplate
+end
+
+
 get "/add_location" do
   erb :add_location, :layout => :boilerplate
 end
