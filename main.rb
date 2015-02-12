@@ -33,6 +33,19 @@ get "/location" do
 end
 
 
+get "/add_category" do
+  erb :add_category, :layout => :boilerplate
+end
+
+get "/category" do
+  c1 = Category.new("manufacturer" => "#{params["manufacturer"]}")
+  c1.insert
+  logger.info params
+  @manufacturer = "#{params["manufacturer"]}"
+  erb :category, :layout => :boilerplate
+end
+
+
 get "/product_form" do
   erb :product_form, :layout => :boilerplate
 end
