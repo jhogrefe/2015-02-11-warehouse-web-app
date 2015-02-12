@@ -4,15 +4,15 @@ require 'sqlite3'
 require 'data_mapper'
 
 
-DATABASE = SQLite3::Database.new('warehouse.db')
+DATABASE = SQLite3::Database.new('/database/warehouse.db')
 
 # Here, we load category, location and product files so we don't need to in 
 # every file
 
-require_relative "database_setup"
-require_relative "category"
-require_relative "location"
-require_relative "product"
+require_relative "../database/database_setup"
+require_relative "../models/category"
+require_relative "../models/location"
+require_relative "../models/product"
 
 
 get "/" do
