@@ -125,5 +125,3 @@ get "/fetch_products" do
   @products = Product.all
   erb :fetch_products, :layout => :boilerplate
 end
-
-binding.pry
