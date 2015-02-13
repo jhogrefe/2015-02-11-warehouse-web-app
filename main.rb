@@ -1,14 +1,15 @@
 require 'pry'
 require 'sinatra'
 require 'sqlite3'
+require_relative "models/modules.rb"
 
 DATABASE = SQLite3::Database.new('database/warehouse.db')
 
 
 require_relative "database/database_setup"
-require_relative "models/category"
-require_relative "models/location"
-require_relative "models/product"
+require_relative "models/category.rb"
+require_relative "models/location.rb"
+require_relative "models/product.rb"
 
 
 get "/" do
@@ -68,6 +69,19 @@ get "/category" do
   c1.insert
   @manufacturer = "#{params["manufacturer"]}"
   erb :category, :layout => :boilerplate
+end
+
+
+get "/update_category" do
+  erb :update_category, :layout => :boilerplate
+end
+
+get "/category_update" do
+  c3 = Category.new("id" => "#{params["category_id"]}", 
+  "manufacturer" => "#{params["manufacturer"]}")
+  c3.save
+  @manufacturer = "#{params["manufacturer"]}"
+  erb :category_update, :layout => :boilerplate
 end
 
 

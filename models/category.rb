@@ -62,7 +62,6 @@ class Category
         category_grabber << "#{y} = '#{local_var}'"
       end
     end
-    
     var = category_grabber.join(", ")   
     DATABASE.execute("UPDATE categories SET #{var} WHERE id = #{id}")
   end
