@@ -67,34 +67,18 @@ class Category
   end
 
   # Public: #delete
-  # Returns the current values in the database as an array and deletes the 
-  # category record.
+  # Gets the id value and deletes the category record matching the id.
   #
   # Parameters:
-  # instance_variables - value of each instance variable that is set by
-  #                      the user.
+  # id_to_delete - Integer, ID of category to delete.
   #
   # Returns:
   # None.
   #
   # State Changes:
   # Removes the category record from the database.  
-  def delete
-    get_category = []
-    instance_variables.each do |x|
-      get_category << x.to_s.delete("@")  
-    end
-    
-    category_grabber = []    
-    get_category.each do |y|
-      local_var = self.send(y)    
-      if local_var.is_a?(Integer)
-        category_grabber << "#{y} = #{local_var}"  
-      else
-        category_grabber << "#{y} = '#{local_var}'"
-      end
-      DATABASE.execute("DELETE FROM categories WHERE id = '#{local_var}'")      
-    end        
+  def delete(id_to_delete)
+    DATABASE.execute("DELETE FROM categories WHERE id = '#{id_to_delete}'")              
   end
 
   # Public: .all

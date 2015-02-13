@@ -77,34 +77,19 @@ class Product
   end
 
   # Public: #delete
-  # Returns the current values in the database as an array and deletes the 
-  # product record for any matching name given by the the user.
+  # Gets the name value and deletes the product record for any matching name 
+  # given by the the user.
   #
   # Parameters:
-  # instance_variables - value of each instance variable that is set by
-  #                      the user.
+  # name_to_delete - String, name of product to delete.
   #
   # Returns:
   # None.
   #
   # State Changes:
   # Removes the product record from the database.   
-  def delete
-    get_product = []
-    instance_variables.each do |x|
-      get_product << x.to_s.delete("@")  
-    end
-    
-    product_grabber = []    
-    get_product.each do |y|
-      local_var = self.send(y)    
-      if local_var.is_a?(Integer)
-        product_grabber << "#{y} = #{local_var}"  
-      else
-        product_grabber << "#{y} = '#{local_var}'"
-      end
-      DATABASE.execute("DELETE FROM products WHERE id = '#{local_var}'")      
-    end        
+  def delete(name_to_delete)
+    DATABASE.execute("DELETE FROM products WHERE id = '#{name_to_delete}'")      
   end
   
   # Not sure if I will use this yet...

@@ -48,7 +48,7 @@ end
 
 get "/location_delete" do
   l2 = Location.new("id" => "#{params["location_id"]}")
-  l2.delete
+  l2.delete(params["location_id"])
 
   erb :delete, :layout => :boilerplate
 end
@@ -91,7 +91,7 @@ end
 
 get "/category_delete" do
   c2 = Category.new("id" => "#{params["category_id"]}")
-  c2.delete
+  c2.delete(params["category_id"])
   erb :delete, :layout => :boilerplate
 end
 
@@ -130,7 +130,7 @@ end
 
 get "/product_delete" do
   p2 = Product.new("name" => "#{params["name"]}")
-  p2.delete
+  p2.delete(params["name"])
   erb :delete, :layout => :boilerplate
 end
 
