@@ -5,14 +5,11 @@ Please select which location you would like to update and enter the new location
 </p>
 
   <form action="/location_update">
-    <select name="name">
+    <select name="location_id">
       <% Location.all.each do |x| %>
         <option value="<%= x.id %>"><%= x.id%> - <%= x.location_name %></option>
       <% end %>
     </select>
-    <br><br>
-    <strong>Current ID Number:</strong><br>
-    <input type="number" name="location_id">
     <br><br>
     <strong>New Location Name:</strong><br>
     <input type="text" name="location_name">

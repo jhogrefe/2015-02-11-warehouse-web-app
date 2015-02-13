@@ -22,7 +22,7 @@ get "/add_location" do
 end
 
 get "/location" do
-  l1 = Location.new("location_name" => "#{params["location_name"]}")
+  l1 = Location.new(params)
   l1.insert
   @location_name = "#{params["location_name"]}"
   erb :location, :layout => :boilerplate
@@ -34,9 +34,8 @@ get "/update_location" do
 end
 
 get "/location_update" do
-  l3 = Location.new("id" => "#{params["location_id"]}", 
-  "location_name" => "#{params["location_name"]}")
-  l3.save
+  l3 = Location.new(params)
+  l3.save("#{params["location_name"]}", "#{params["location_id"]}")
   @location_name = "#{params["location_name"]}"
   erb :locations_update, :layout => :boilerplate
 end
@@ -47,7 +46,7 @@ get "/delete_location" do
 end
 
 get "/location_delete" do
-  l2 = Location.new("id" => "#{params["location_id"]}")
+  l2 = Location.new(params)
   l2.delete(params["location_id"])
 
   erb :delete, :layout => :boilerplate
@@ -65,7 +64,7 @@ get "/add_category" do
 end
 
 get "/category" do
-  c1 = Category.new("manufacturer" => "#{params["manufacturer"]}")
+  c1 = Category.new(params)
   c1.insert
   @manufacturer = "#{params["manufacturer"]}"
   erb :category, :layout => :boilerplate
@@ -77,9 +76,8 @@ get "/update_category" do
 end
 
 get "/category_update" do
-  c3 = Category.new("id" => "#{params["category_id"]}", 
-  "manufacturer" => "#{params["manufacturer"]}")
-  c3.save
+  c3 = Category.new(params)
+  c3.save("#{params["manufacturer"]}", "#{params["category_id"]}")
   @manufacturer = "#{params["manufacturer"]}"
   erb :category_update, :layout => :boilerplate
 end
@@ -90,7 +88,7 @@ get "/delete_category" do
 end
 
 get "/category_delete" do
-  c2 = Category.new("id" => "#{params["category_id"]}")
+  c2 = Category.new(params)
   c2.delete(params["category_id"])
   erb :delete, :layout => :boilerplate
 end
@@ -107,11 +105,7 @@ get "/product_form" do
 end
 
 get "/product" do 
-  p1 = Product.new("name" => "#{params["name"]}", 
-  "description" => "#{params["description"]}", "cost" => "#{params["cost"]}", 
-  "serial" => "#{params["serial"]}", "quantity" => "#{params["quantity"]}", 
-  "location_id" => "#{params["location_id"]}", 
-  "category_id" => "#{params["category_id"]}")  
+  p1 = Product.new(params)  
   p1.insert  
   @name = "#{params["name"]}"
   @description = "#{params["description"]}"
@@ -129,7 +123,7 @@ get "/delete_product" do
 end
 
 get "/product_delete" do
-  p2 = Product.new("name" => "#{params["name"]}")
+  p2 = Product.new(params)
   p2.delete(params["name"])
   erb :delete, :layout => :boilerplate
 end

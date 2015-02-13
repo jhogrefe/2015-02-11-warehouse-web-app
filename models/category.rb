@@ -24,7 +24,7 @@ class Category
   # None.
   #
   # Returns:
-  # None.
+  # New values as strings for the new category record.
   #
   # State Changes:
   # Inserts values into 'categories' table in the database as a new category
@@ -39,31 +39,17 @@ class Category
   # Updates the category name in the 'categories' table.
   #
   # Parameters:
-  # instance_variables - value of each instance variable that is set by
-  #                      the user.
+  # name_to_update - String, new name of category record.
+  # id_var         - Integer, ID of category to delete.
   #
   # Returns:
-  # None.
+  # String, new value for manufacturer field in updated category record.
   #
   # State Changes:
   # Saves new value in 'categories' table in the database.
-  def save
-    get_category = []
-    instance_variables.each do |x|
-      get_category << x.to_s.delete("@")  
-    end
-    
-    category_grabber = []    
-    get_category.each do |y|
-      local_var = self.send(y)    
-      if local_var.is_a?(Integer)
-        category_grabber << "#{y} = #{local_var}"  
-      else
-        category_grabber << "#{y} = '#{local_var}'"
-      end
-    end
-    var = category_grabber.join(", ")   
-    DATABASE.execute("UPDATE categories SET #{var} WHERE id = #{id}")
+  def save(name_to_update, id_var)
+    DATABASE.execute("UPDATE categories SET manufacturer = '#{name_to_update}' 
+    WHERE id = '#{id_var}'")
   end
 
   # Public: #delete

@@ -5,14 +5,11 @@ Please select which manufacturer you would like to update and enter the new manu
 </p>
 
   <form action="/category_update">
-    <select name="name">
+    <select name="category_id">
       <% Category.all.each do |x| %>
         <option value="<%= x.id %>"><%= x.id%> - <%= x.manufacturer %></option>
       <% end %>
     </select>
-    <br><br>
-    <strong>Current ID Number:</strong><br>
-    <input type="number" name="category_id">
     <br><br>
     <strong>New Location Name:</strong><br>
     <input type="text" name="manufacturer">

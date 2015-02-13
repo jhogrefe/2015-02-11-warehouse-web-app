@@ -25,7 +25,7 @@ class Location
   # None.
   #
   # Returns:
-  # None.
+  # New values as strings for the new product record.
   #
   # State Changes:
   # Inserts values into 'locations' table in the database as a new location
@@ -37,34 +37,20 @@ class Location
   end
   
   # Public: #save
-  # Updates the location name in the 'locations' table.
+  # Updates the location name in the 'categories' table.
   #
   # Parameters:
-  # instance_variables - value of each instance variable that is set by
-  #                      the user.
+  # name_to_update - String, new name of location record.
+  # id_var         - Integer, ID of location to delete.
   #
   # Returns:
-  # None.
+  # String, new value for location_name field in updated location record.
   #
   # State Changes:
   # Saves new value in 'locations' table in the database.
-  def save
-    get_location = []
-    instance_variables.each do |x|
-      get_location << x.to_s.delete("@")  
-    end
-    
-    location_grabber = []   
-    get_location.each do |y|
-      local_var = self.send(y)
-      if local_var.is_a?(Integer)
-        location_grabber << "#{y} = #{local_var}"  
-      else
-        location_grabber << "#{y} = '#{local_var}'"
-      end      
-    end
-    var = location_grabber.join(", ")
-    DATABASE.execute("UPDATE locations SET #{var} WHERE id = #{id}")        
+  def save(name_to_update, id_var)
+    DATABASE.execute("UPDATE locations SET location_name = '#{name_to_update}' 
+    WHERE id = '#{id_var}'")        
   end
 
   # Public: #delete
@@ -81,14 +67,6 @@ class Location
   def delete(id_to_delete)
     DATABASE.execute("DELETE FROM locations WHERE id = '#{id_to_delete}'")
   end
-  # TRYING A REFACTOR USING A MODULE (NOT WORKING):
-  # def delete
-  #
-  #   local_var = variable_loop(self.instance_variables)
-  #
-  #   DATABASE.execute("DELETE FROM locations WHERE id = #{local_var}")
-  #
-  # end
   
   
   # Public: .all

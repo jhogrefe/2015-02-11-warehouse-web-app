@@ -27,8 +27,7 @@ class Product
   # assigns an id.
   #
   # Parameters:
-  # Any attribute value given by the user, including name, location_id,
-  # category_id, description, cost, serial, quantity
+  # None.
   #
   # Returns: Integer,
   #
@@ -48,8 +47,7 @@ class Product
   # values in this object's corresponding row in the 'students' table.
   #
   # Parameters:
-  # instance_variables - value of each instance variable that is set by
-  #                      the user.
+  # None.
   #
   # Returns:
   # None.
