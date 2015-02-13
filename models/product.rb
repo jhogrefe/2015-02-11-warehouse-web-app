@@ -1,3 +1,11 @@
+# Public: Product
+# A class to get and set values in the 'products' database table.
+#
+# Attributes:
+# id, name, location_id, category_id, description, cost, serial, quantity.
+#
+# Methods:
+# #insert, #save, #delete, #fetch_product_record
 class Product
   attr_reader   :id
   attr_accessor :name, :location_id, :category_id, :description, 
@@ -14,13 +22,20 @@ class Product
     @quantity    = options["quantity"]
   end
   
-  #Method 'insert' adds a new table row to the products table
-  #the argument will come in as [name, location_id, category_id,
-  #description, cost, serial, quantity]
-  
-  def insert
-    
-    
+  # Public: #insert
+  # Adds the object to the 'products' table as a new product record and 
+  # assigns an id.
+  #
+  # Parameters:
+  # Any attribute value given by the user, including name, location_id,
+  # category_id, description, cost, serial, quantity
+  #
+  # Returns: Integer,
+  #
+  # State Changes:
+  # Inserts values into 'products' table in the database as a new product
+  # record.
+  def insert    
     DATABASE.execute("INSERT INTO products (name, location_id, category_id,
                       description, cost, serial, quantity) 
                       VALUES ('#{name}', #{location_id}, #{category_id}, 
@@ -28,20 +43,28 @@ class Product
     @id = DATABASE.last_insert_row_id
   end
   
-  # save method finds the existing value for a row and "updates" it.
+  # Public: #save
+  # Take all the attributes for this object and make sure those are the 
+  # values in this object's corresponding row in the 'students' table.
+  #
+  # Parameters:
+  # instance_variables - value of each instance variable that is set by
+  #                      the user.
+  #
+  # Returns:
+  # None.
+  #
+  # State Changes:
+  # Sets the new values in the database.
   def save
     get_product = []
-
     instance_variables.each do |x|
-      get_product << x.to_s.delete("@")
-  
+      get_product << x.to_s.delete("@")  
     end
     
-    product_grabber = []
-    
+    product_grabber = []    
     get_product.each do |y|
-      local_var = self.send(y)
-    
+      local_var = self.send(y)    
       if local_var.is_a?(Integer)
         product_grabber << "#{y} = #{local_var}"  
       else
@@ -49,88 +72,53 @@ class Product
       end
     end
     
-    var = product_grabber.join(", ")
-    
+    var = product_grabber.join(", ")    
     DATABASE.execute("UPDATE products SET #{var} WHERE id = #{id}")
   end
-  
+
+  # Public: #delete
+  # Returns the current values in the database as an array and deletes the 
+  # product record for any matching name given by the the user.
+  #
+  # Parameters:
+  # instance_variables - value of each instance variable that is set by
+  #                      the user.
+  #
+  # Returns:
+  # None.
+  #
+  # State Changes:
+  # Removes the product record from the database.   
   def delete
     get_product = []
-
     instance_variables.each do |x|
-      get_product << x.to_s.delete("@")
-  
+      get_product << x.to_s.delete("@")  
     end
     
-    product_grabber = []
-    
+    product_grabber = []    
     get_product.each do |y|
-      local_var = self.send(y)
-    
+      local_var = self.send(y)    
       if local_var.is_a?(Integer)
         product_grabber << "#{y} = #{local_var}"  
       else
         product_grabber << "#{y} = '#{local_var}'"
       end
-      DATABASE.execute("DELETE FROM products WHERE id = '#{local_var}'")
-      
-    end
-        
+      DATABASE.execute("DELETE FROM products WHERE id = '#{local_var}'")      
+    end        
   end
   
-  
-  def self.fetch_product_record(number)
-    results = DATABASE.execute("SELECT * FROM products WHERE id = 
-                                #{number}")
-    #results should only return one position in the array since we're 
-    #only requesting one variable:
-
-    return results[0]
-  end
-  
-  #assign_product_location is used to move products to different locations
-  def self.assign_product_location(existing_product_key, desired_location_id)
-    x = existing_product_key
-    y = desired_location_id
-    # consider using part or all of the code below for the cli menu conditionals
-    # location_catcher = []
-    # new_fetch = Product.fetch_product_record(x)
-    # location_catcher = new_fetch[0]
-    # puts location_catcher
-    
-    DATABASE.execute("UPDATE products SET location_id = #{y} 
-                      WHERE id = #{x}")
-  end
-  
-  def self.assign_product_category(existing_product_key, desired_category_id)
-    x = existing_product_key
-    y = desired_category_id
-    
-    DATABASE.execute("UPDATE products SET category_id = #{y} 
-                      WHERE id = #{x}")
-  end
-  
+  # Not sure if I will use this yet...
   def self.update_product_quantity(existing_product_key, desired_quantity)
     x = existing_product_key
-    y = desired_quantity
-    
+    y = desired_quantity   
     DATABASE.execute("UPDATE products SET quantity = #{y} 
                       WHERE id = #{x}")
   end
-  
+
+  # Not sure if I will use this yet...  
   def self.where_products_in_category(category_id)
     results = DATABASE.execute("SELECT * FROM products WHERE category_id = 
                                  #{category_id}")
-                                 
-    #create an empty array to pass in each separate hash:
-    # results_changed_to_objects = []
-    # results_changed_to_objects = results
-
-    # results.each do |database_hashes|
-    # results_changed_to_objects << self.new(database_hashes)
-    #
-    # end
-    # results_changed_to_objects
     results
   end
   
@@ -149,32 +137,25 @@ class Product
     # results_changed_to_objects
     results
   end
-  
+
+  # Public: .all
+  # Class method that returns all records in the table
+  #
+  # Parameters:
+  # None.
+  #
+  # Returns:
+  # All table records as objects.
+  #
+  # State Changes:
+  # None.
   def self.all
-   
      results = DATABASE.execute("SELECT * FROM products")
-   
      results_as_objects = []
-   
      results.each do |r|
        results_as_objects << self.new(r)
      end
-   
      results_as_objects
    end
-  
-  # def self.find(number)
-  #   results = DATABASE.execute("SELECT * FROM products WHERE id =
-  #                               #{number}")
-  #   #results should only return one position in the array since we're
-  #   #only requesting one variable:
-  #
-  #
-  #
-  #   return results[0]
-  #   #self.new is a new class instance that will return an array containing
-  #   #one record as a hash
-  #   # record_details = results[0]
-  #   # self.new("id" => "{record_details}")
-  # end
+
 end

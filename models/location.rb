@@ -1,3 +1,12 @@
+# Public: Location
+# A class to get and insert, save and delete new records in the 'locations'
+# table of the database.
+#
+# Attributes:
+# @id, @location_name
+#
+# Methods:
+# #insert, #save, #delete
 class Location 
   attr_reader :id
   attr_accessor :location_name
@@ -7,101 +16,105 @@ class Location
     @id = options["id"]
   end
   
-  #Method 'insert' adds a new table row to the locations table
-  #the argument will come in as [:@id, :@location_name]
+  # Public: #insert
+  # Adds the location name to the 'locations' table as a new record and 
+  # assigns an id.
+  #
+  # Parameters:
+  # None.
+  #
+  # Returns:
+  # None.
+  #
+  # State Changes:
+  # Inserts values into 'locations' table in the database as a new location
+  # record.
   def insert
     DATABASE.execute("INSERT INTO locations (location_name) 
                       VALUES ('#{@location_name}')")
     @id = DATABASE.last_insert_row_id
   end
   
-  # save method finds the existing value for 
+  # Public: #save
+  # Updates the location name in the 'locations' table.
+  #
+  # Parameters:
+  # instance_variables - value of each instance variable that is set by
+  #                      the user.
+  #
+  # Returns:
+  # None.
+  #
+  # State Changes:
+  # Saves new value in 'locations' table in the database.
   def save
     get_location = []
-
     instance_variables.each do |x|
-      get_location << x.to_s.delete("@")
-  
+      get_location << x.to_s.delete("@")  
     end
     
-    location_grabber = []
-    
+    location_grabber = []   
     get_location.each do |y|
       local_var = self.send(y)
       if local_var.is_a?(Integer)
         location_grabber << "#{y} = #{local_var}"  
       else
         location_grabber << "#{y} = '#{local_var}'"
-      end
-      
+      end      
     end
     var = location_grabber.join(", ")
-    DATABASE.execute("UPDATE locations SET #{var} WHERE id = #{id}")
-        
+    DATABASE.execute("UPDATE locations SET #{var} WHERE id = #{id}")        
   end
-  
+
+  # Public: #delete
+  # Returns the current values in the database as an array and deletes the 
+  # location record.
+  #
+  # Parameters:
+  # instance_variables - value of each instance variable that is set by
+  #                      the user.
+  #
+  # Returns:
+  # None.
+  #
+  # State Changes:
+  # Removes the location record from the database.   
   def delete
     get_location = []
-
     instance_variables.each do |x|
-      get_location << x.to_s.delete("@")
-  
+      get_location << x.to_s.delete("@")  
     end
     
-    location_grabber = []
-    
+    location_grabber = []    
     get_location.each do |y|
       local_var = self.send(y)
-    
-      if local_var.is_a?(Integer)
+          if local_var.is_a?(Integer)
         location_grabber << "#{y} = #{local_var}"  
       else
         location_grabber << "#{y} = '#{local_var}'"
       end
-      DATABASE.execute("DELETE FROM locations WHERE id = '#{local_var}'")
-      
-    end
-      
+      DATABASE.execute("DELETE FROM locations WHERE id = '#{local_var}'")      
+    end      
   end
-  
-  def self.all
-   
-     results = DATABASE.execute("SELECT * FROM locations")
-   
-     results_as_objects = []
-   
+
+  # Public: .all
+  # Class method that returns all records in the table
+  #
+  # Parameters:
+  # None.
+  #
+  # Returns:
+  # All table records as objects.
+  #
+  # State Changes:
+  # None.  
+  def self.all   
+     results = DATABASE.execute("SELECT * FROM locations")   
+     results_as_objects = []   
      results.each do |r|
        results_as_objects << self.new(r)
-     end
-   
+     end  
      results_as_objects
-   end
-
-
-
-   # def self.delete_location
-   #   get_location = []
-   #
-   #   instance_variables.each do |x|
-   #     get_location << x.to_s.delete("@")
-   #
-   #   end
-   #    results = DATABASE.execute("SELECT id FROM locations")
-   #
-   #    results_as_objects = []
-   #
-   #    results.each do |r|
-   #      results_as_objects = self.new(r)
-   #    end
-   #
-   #    if results_as_objects.is_a?(Integer)
-   #      location_grabber << "#{y} = #{local_var}"
-   #    else
-   #      location_grabber << "#{y} = '#{local_var}'"
-   #    end
-   #
-   #  DATABASE.execute("DELETE FROM locations WHERE id = '#{location_id}'")
-   #
-   #  end
+  end
   
 end
