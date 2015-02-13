@@ -1,14 +1,21 @@
 <h1>Update Warehouse Location Record</h1>
 
 <p>
-   Please update your warehouse location name.
+   Please select which location you would like to update and enter the new location name in the field below.
 </p>
 
   <form action="/location_update">
-    <strong>Warehouse Location Name:</strong><br>
+    <select name="name">
       <% Location.all.each do |x| %>
-        <input type="text" name="location_name" value="<%= x.location_name %>">
+        <option value="<%= x.id %>"><%= x.id%> - <%= x.location_name %></option>
       <% end %>
+    </select>
+    <br><br>
+    <strong>Current ID Number:</strong><br>
+    <input type="number" name="location_id">
+    <br><br>
+    <strong>New Location Name:</strong><br>
+    <input type="text" name="location_name">
     <br><br>
     <input type="submit" value="Submit">
   </form>

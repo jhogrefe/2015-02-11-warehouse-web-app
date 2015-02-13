@@ -37,9 +37,11 @@ get "/update_location" do
 end
 
 get "/location_update" do
-  l3 = Product.new("location_id" => "#{params["location_id"]}")
-  
-  erb :update_location, :layout => :boilerplate
+  l3 = Location.new("id" => "#{params["location_id"]}", 
+  "location_name" => "#{params["location_name"]}")
+  l3.save
+  @location_name = "#{params["location_name"]}"
+  erb :locations_update, :layout => :boilerplate
 end
 
 
@@ -128,3 +130,10 @@ get "/product_delete" do
 
   erb :delete, :layout => :boilerplate
 end
+
+
+get "/fetch_products" do
+  @products = Product.all
+  erb :fetch_products, :layout => :boilerplate
+end
+

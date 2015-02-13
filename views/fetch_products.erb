@@ -1,0 +1,12 @@
+<h1>Products</h1>
+<h2>Look below for a current list of your products!</h2>
+<hr>
+<h3>PRODUCTS</h3>
+<hr>
+<% @products.each do |products| %>
+  <p>
+     <strong>ID:</strong> <%= products.id %> / <strong>Name:</strong> <%= products.name %> / <strong>Cost:</strong> $<%= products.cost %> / <strong>Serial:</strong> <%= products.serial %> / <strong>Quantity:</strong> <%= products.quantity %> / <%= products.description %> / <strong>Location ID:</strong> <%= products.location_id %> / <strong>Category ID:</strong> <%= products.category_id %>
+  </p>
+<% end %>
+
+<br><a href="http://localhost:4567">&gt&gtHome&lt&lt</a>
